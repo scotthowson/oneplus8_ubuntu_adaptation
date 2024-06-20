@@ -10,6 +10,9 @@ fi
 CORE_FIRST=$(awk '$1 == "processor" {print $3; exit}' /proc/cpuinfo)
 CORE_LAST=$(awk '$1 == "processor" {print $3}' /proc/cpuinfo | tail -1)
 
+echo "CORE_FIRST: $CORE_FIRST"
+echo "CORE_LAST: $CORE_LAST"
+
 # Loop through each CPU core
 for ((i=$CORE_FIRST; i<=$CORE_LAST; i++)); do
   # Get the maximum frequency
@@ -21,6 +24,9 @@ for ((i=$CORE_FIRST; i<=$CORE_LAST; i++)); do
   else
     GOVERNOR=$(</sys/devices/system/cpu/cpu${i}/cpufreq/scaling_governor)
   fi
+
+  echo "CPU$i GOVERNOR: $GOVERNOR"
+  echo "CPU$i MAXFREQ: $MAXFREQ"
 
   # Set scheduler load boost
   if [ -f "/sys/devices/system/cpu/cpu${i}/sched_load_boost" ]; then
@@ -39,28 +45,27 @@ for ((i=$CORE_FIRST; i<=$CORE_LAST; i++)); do
   fi
 done
 
-# Create and mount schedtune cgroup
-mkdir -p /sys/fs/cgroup/schedtune
-
-if mount -t cgroup -o schedtune stune /sys/fs/cgroup/schedtune; then
-  echo "Mounted schedtune cgroup successfully"
-else
-  echo "Failed to mount schedtune cgroup"
-  exit 1
-fi
-
-# Set schedtune parameters
-if [ -f /sys/fs/cgroup/schedtune/schedtune.boost ]; then
-  echo 20 > /sys/fs/cgroup/schedtune/schedtune.boost
-fi
-
-if [ -f /sys/fs/cgroup/schedtune/schedtune.prefer_idle ]; then
-  echo 1 > /sys/fs/cgroup/schedtune/schedtune.prefer_idle
-fi
+# Check and set schedtune parameters
+for dir in /sys/fs/cgroup/schedtune/*; do
+  if [ -d "$dir" ]; then
+    echo "Processing $dir"
+    if [ -f "$dir/schedtune.boost" ]; then
+      echo 20 > "$dir/schedtune.boost"
+      echo "Set $dir/schedtune.boost to 20"
+    fi
+    if [ -f "$dir/schedtune.prefer_idle" ]; then
+      echo 1 > "$dir/schedtune.prefer_idle"
+      echo "Set $dir/schedtune.prefer_idle to 1"
+    fi
+  fi
+done
 
 # Disable autogroup scheduling
 if [ -f /proc/sys/kernel/sched_autogroup_enabled ]; then
   echo 0 > /proc/sys/kernel/sched_autogroup_enabled
+  echo "Disabled autogroup scheduling"
+else
+  echo "/proc/sys/kernel/sched_autogroup_enabled not found"
 fi
 
 echo "CPU optimization script completed successfully"
