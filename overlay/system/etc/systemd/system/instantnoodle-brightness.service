@@ -4,7 +4,7 @@ After=lomiri-full-greeter.service
 
 [Service]
 Type=simple
-ExecStart=/vendor/bin/instantnoodle-brightness.sh
+ExecStart=/opt/halium-overlay/usr/share/halium-overlay/vendor/bin/instantnoodle-brightness.sh
 
 [Install]
 WantedBy=default.target

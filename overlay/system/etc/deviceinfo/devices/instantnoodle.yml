@@ -6,7 +6,7 @@ instantnoodle:
     - instantnoodlep
   PrettyName: OnePlus8
   DeviceType: phone
-  GridUnit: 24
+  GridUnit: 18
   SupportedOrientation:
     - Portrait
     - Landscape
