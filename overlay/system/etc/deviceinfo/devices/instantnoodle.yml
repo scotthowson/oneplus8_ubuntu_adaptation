@@ -13,3 +13,19 @@ instantnoodle:
     - Portrait
     - Landscape
     - InvertedLandscape
+  BacklightSysfsPath:
+    - /sys/class/backlight/panel0-backlight
+  FlashlightSysfsPath:
+    - /sys/class/leds/led:torch_0/brightness
+  FlashlightSwitchPath:
+    - /sys/class/leds/led:switch_0/brightness
+  MirAndroidPlatformServerBackpressure:
+    - false
+  MirAndroidPlatformServerPartialUpdates:
+    - true
+  MirAndroidPlatformServerEglSync:
+    - false
+  MirAndroidPlatformClientEglFlush:
+    - 'all'
+  XwaylandShm:
+    - true
