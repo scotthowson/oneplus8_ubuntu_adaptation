@@ -1,0 +1,15 @@
+script
+    # Load WLAN kernel module
+    insmod /vendor/lib/modules/qca_cld3_wlan.ko
+
+    if [ -f /usr/bin/getprop ]
+    then
+        # Wait for the property system to be up.
+        while [ ! -e /dev/socket/property_service ]; do sleep 0.1; done
+
+        # Wait for properties to be loaded.
+        while [ -z "$(getprop wifi.interface)" ]; do sleep 0.2; done
+    fi
+
+    exec /usr/lib/aarch64-linux-gnu/urfkill/urfkilld
+end script
