@@ -1,7 +1,4 @@
 script
-    # Load WLAN kernel module
-    insmod /vendor/lib/modules/qca_cld3_wlan.ko
-
     if [ -f /usr/bin/getprop ]
     then
         # Wait for the property system to be up.
