@@ -1,0 +1,11 @@
+[Unit]
+Description=Ubuntu Touch CPU Governor
+Requires=lxc@android.service
+After=lxc@android.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/halium-overlay/usr/share/halium-overlay/vendor/bin/ubuntu-perf.sh
+
+[Install]
+WantedBy=multi-user.target
