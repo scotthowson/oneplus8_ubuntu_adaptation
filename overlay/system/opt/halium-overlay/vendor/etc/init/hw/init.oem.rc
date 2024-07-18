@@ -604,10 +604,3 @@ service chmodkeyboxxml /system/bin/chmod 777 /op2/.lii/keyboxes_ciphered.xml
     oneshot
     seclabel u:r:vold:s0
 # endif
-
-#ifdef ODM_WT_EDIT Kai.Cao@ODM_WT.NW.SIM,BILLIE8-6704, 2020/07/13,Support single and dual card solutions
-on property:ro.boot.board_id=S86260AA1
-    setprop persist.radio.multisim.config "ssss"
-on property:ro.boot.board_id=S86261AA1
-    setprop persist.radio.multisim.config "dsds"
-#endif
