@@ -12,3 +12,33 @@ on boot
     # load wlan module
     insmod /system/vendor/lib/modules/qca_cld3_wlan.ko
     echo 1 > /proc/touchpanel/double_tap_enable
+
+service vendor.imsqmidaemon /vendor/bin/imsqmidaemon_HYBRIS_DISABLED
+    disabled
+    oneshot
+    override
+
+service vendor.imsdatadaemon /vendor/bin/imsdatadaemon_HYBRIS_DISABLED
+    disabled
+    oneshot
+    override
+
+service vendor.imsrcsservice vendor.imsrcsservice_HYBRIS_DISABLED
+    disabled
+    oneshot
+    override
+
+service vendor.imsrcsservice /vendor/bin/imsrcsd_HYBRIS_DISABLED
+    disabled
+    oneshot
+    override
+
+service ims_regmanager /system/vendor/bin/exe-ims-regmanagerprocessnative_HYBRIS_DISABLED
+    disabled
+    oneshot
+    override
+
+service time_daemon vendor.time_daemon_HYBRIS_DISABLED
+    disabled
+    oneshot
+    override
