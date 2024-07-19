@@ -28,7 +28,7 @@ reset_usb() {
 
 setup_mtp() {
     reset_usb
-    write $GADGET_DIR/g1/functions/mtp.mtp/os_desc/interface.MTP/compatible_id "mtp"
+    write $GADGET_DIR/g1/functions/mtp.gs0/os_desc/interface.MTP/compatible_id "mtp"
     write $GADGET_DIR/g1/configs/c.1/strings/0x409/configuration "mtp"
     symlink $GADGET_DIR/g1/functions/mtp.mtp $GADGET_DIR/g1/configs/c.1
     write $GADGET_DIR/g1/os_desc/use 1

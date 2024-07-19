@@ -1,0 +1,14 @@
+[Unit]
+Description=audiosystem-passthrough instance implementing IQcRilAudio interface
+After=pulseaudio.service
+PartOf=pulseaudio.service
+
+[Service]
+Type=simple
+Environment=AUDIOSYSTEM_PASSTHROUGH_ADDRESS=unix:path=%t/pulse/dbus-socket
+Environment=AUDIOSYSTEM_PASSTHROUGH_TYPE=qti
+ExecCondition=/bin/grep -q IQcRilAudio /vendor/odm/etc/vintf/manifest_2.xml /vendor/odm/etc/vintf/manifest_8.xml /vendor/manifest.xml
+ExecStart=/usr/libexec/audiosystem-passthrough/audiosystem-passthrough
+
+[Install]
+WantedBy=pulseaudio.service

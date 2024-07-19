@@ -43,8 +43,15 @@ load-module module-null-sink sink_name=sink.fake.sco rate=8000 channels=1
 load-module module-null-source source_name=source.fake.sco rate=8000 channels=1
 
 ### Automatically load the Pulseaudio Droid
-.ifexists module-droid-discover.so
-load-module module-droid-discover voice_virtual_stream=true
+#.ifexists module-droid-discover.so
+#load-module module-droid-discover voice_virtual_stream=true hidl_args='helper=false'
+#.endif
+.ifexists module-droid-card-28.so
+load-module module-droid-card-28 rate=48000 voice_virtual_stream=true quirks=-output_deep_buffer
+.endif
+
+.ifexists module-droid-hidl.so
+load-module module-droid-hidl helper=false
 .endif
 
 ### Automatically load the trust-store module
