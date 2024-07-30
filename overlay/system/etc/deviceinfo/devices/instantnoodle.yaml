@@ -1,4 +1,4 @@
-instantnoodle:
+Instantnoodle:
   Vendor: OnePlus
   codename: instantnoodle
   Names:
@@ -26,6 +26,7 @@ instantnoodle:
   MirAndroidPlatformServerEglSync:
     - false
   MirAndroidPlatformClientEglFlush:
-    - 'all'
+    - "!/usr/bin/unity8,!/usr/bin/lomiri,all"
   XwaylandShm:
     - true
+

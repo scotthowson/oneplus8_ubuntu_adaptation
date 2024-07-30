@@ -1,16 +1,20 @@
 # Misuse this overlay for some Android properties
+
+# Set properties early in the boot process
 on early-init
     setprop debug.stagefright.ccodec 0
 
+# Set properties during initialization
 on init
     setprop debug.stagefright.ccodec 0
 
+# Set properties during boot and load WLAN module
 on boot
     setprop debug.stagefright.ccodec 0
     setprop ubuntu.unity8.interactive_blur true
     setprop ubuntu.widi.supported 1
 
-    # Load WLAN module
+    # Load WLAN module if available
     if [ -f /android/vendor/lib/modules/qca_cld3_wlan.ko ]; then
         insmod /android/vendor/lib/modules/qca_cld3_wlan.ko
 
@@ -26,12 +30,14 @@ on boot
         log -p e -t wlan "WLAN module not found"
     fi
 
-service vendor.imsqmidaemon /vendor/bin/imsqmidaemon_HYBRIS_DISABLED
+# Disable unused services for HYBRIS
+
+service time_daemon vendor.time_daemon_HYBRIS_DISABLED
     disabled
     oneshot
     override
 
-service vendor.imsdatadaemon /vendor/bin/imsdatadaemon_HYBRIS_DISABLED
+service vendor.imsqmidaemon vendor.imsqmidaemon_HYBRIS_DISABLED
     disabled
     oneshot
     override
@@ -41,17 +47,4 @@ service vendor.imsrcsservice vendor.imsrcsservice_HYBRIS_DISABLED
     oneshot
     override
 
-service vendor.imsrcsservice /vendor/bin/imsrcsd_HYBRIS_DISABLED
-    disabled
-    oneshot
-    override
 
-service ims_regmanager /system/vendor/bin/exe-ims-regmanagerprocessnative_HYBRIS_DISABLED
-    disabled
-    oneshot
-    override
-
-service time_daemon vendor.time_daemon_HYBRIS_DISABLED
-    disabled
-    oneshot
-    override
