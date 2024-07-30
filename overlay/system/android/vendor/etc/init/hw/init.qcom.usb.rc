@@ -9,8 +9,22 @@ on boot
     setprop debug.stagefright.ccodec 0
     setprop ubuntu.unity8.interactive_blur true
     setprop ubuntu.widi.supported 1
-    # load wlan module
-    insmod /system/vendor/lib/modules/qca_cld3_wlan.ko
+
+    # Load WLAN module
+    if [ -f /android/vendor/lib/modules/qca_cld3_wlan.ko ]; then
+        insmod /android/vendor/lib/modules/qca_cld3_wlan.ko
+
+        # Check if the module is loaded successfully
+        if [ $? -eq 0 ]; then
+            setprop wlan.module.loaded 1
+        else
+            setprop wlan.module.loaded 0
+            log -p e -t wlan "Failed to load WLAN module"
+        fi
+    else
+        setprop wlan.module.loaded 0
+        log -p e -t wlan "WLAN module not found"
+    fi
 
 service vendor.imsqmidaemon /vendor/bin/imsqmidaemon_HYBRIS_DISABLED
     disabled
