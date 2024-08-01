@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Wait for the property system to be up.
+while [ ! -e /dev/socket/property_service ]; do sleep 0.1; done
+
 if [ ! -e /dev/ipa ]; then
     exit 0
 fi

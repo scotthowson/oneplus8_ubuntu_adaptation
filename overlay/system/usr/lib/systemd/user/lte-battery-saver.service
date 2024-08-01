@@ -1,0 +1,10 @@
+[Unit]
+Description=LTE battery saver
+Requires=dbus.socket
+After=dbus.socket
+
+[Service]
+ExecStart=/usr/libexec/lte-battery-saver.sh
+
+[Install]
+WantedBy=dbus.socket
