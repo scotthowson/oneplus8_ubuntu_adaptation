@@ -9,6 +9,7 @@ instantnoodle:
   PrettyName: OnePlus 8
   DeviceType: phone
   GridUnit: 19
+  WebkitDpr: 2
   SupportedOrientation:
     - Portrait
     - Landscape
