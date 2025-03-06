@@ -30,3 +30,5 @@ instantnoodle:
     - 'all'
   XwaylandShm:
     - true
+  OfonoPlugin: binder
+  OfonoImplementsIms: true
