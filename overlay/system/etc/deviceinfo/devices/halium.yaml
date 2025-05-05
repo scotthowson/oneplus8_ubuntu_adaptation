@@ -3,14 +3,12 @@ instantnoodle:
   codename: instantnoodle
   Names:
     - OnePlus 8
-    - OnePlus 8 Pro
     - instantnoodle
-    - instantnoodlep
   PrettyName: OnePlus 8
   DeviceType: phone
-  GridUnit: 19
+  GridUnit: 21
   WebkitDpr: 2
-  SupportedOrientation:
+  SupportedOrientations:
     - Portrait
     - Landscape
     - InvertedLandscape
@@ -27,7 +25,7 @@ instantnoodle:
   MirAndroidPlatformServerEglSync:
     - false
   MirAndroidPlatformClientEglFlush:
-    - 'all'
+    - all
   XwaylandShm:
     - true
   OfonoPlugin: binder

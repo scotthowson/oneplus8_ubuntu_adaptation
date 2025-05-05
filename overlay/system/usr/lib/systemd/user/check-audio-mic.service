@@ -7,7 +7,7 @@ Description=Check Microphone
 Wants=pulseaudio.service
 
 [Service]
-ExecStart=/bin/bash "/usr/lib/lxc-android-config/sound-script"
+ExecStart=/bin/bash "/usr/libexec/lxc-android-config/sound-script"
 
 [Install]
 WantedBy=default.target
