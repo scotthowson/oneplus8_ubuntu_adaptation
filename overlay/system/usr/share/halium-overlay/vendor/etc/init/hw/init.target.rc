@@ -106,7 +106,7 @@ on boot
     setprop vendor.usb.controller a600000.dwc3
 #ifdef VENDOR_EDIT
     #Load WLAN driver
-    exec_background u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules/ qca_cld3_wlan
+    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules/ qca_cld3_wlan
 #endif
 
 #display add 2018/10/19  @lichao_display
