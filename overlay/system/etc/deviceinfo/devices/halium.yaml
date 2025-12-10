@@ -2,6 +2,7 @@ instantnoodle:
   Vendor: OnePlus
   codename: instantnoodle
   Names:
+    - OnePlus8
     - OnePlus 8
     - instantnoodle
   PrettyName: OnePlus 8
@@ -30,3 +31,4 @@ instantnoodle:
     - true
   OfonoPlugin: binder
   OfonoImplementsIms: true
+  FilesystemEncryption: true
