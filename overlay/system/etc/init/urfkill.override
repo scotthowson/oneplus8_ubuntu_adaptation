@@ -11,9 +11,12 @@ script
         insmod /vendor/lib/modules/qca_cld3_wlan.ko || true
     fi
 
-    # Wait for wlan interface to appear (up to 10 seconds)
+    # Wait for any wlan interface to appear (up to 10 seconds)
     TIMEOUT=20
-    while [ $TIMEOUT -gt 0 ] && [ ! -d /sys/class/net/wlan0 ]; do
+    while [ $TIMEOUT -gt 0 ]; do
+        for iface in /sys/class/net/wlan* /sys/class/net/wlp*; do
+            [ -d "$iface" ] && break 2
+        done
         sleep 0.5
         TIMEOUT=$((TIMEOUT - 1))
     done

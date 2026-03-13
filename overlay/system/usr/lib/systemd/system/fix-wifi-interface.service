@@ -1,0 +1,12 @@
+[Unit]
+Description=Fix WiFi connection interface name binding
+After=NetworkManager.service
+Wants=NetworkManager.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'for conn in $(nmcli -t -f NAME,TYPE connection show | grep wifi | cut -d: -f1); do nmcli connection modify "$conn" connection.interface-name ""; done'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

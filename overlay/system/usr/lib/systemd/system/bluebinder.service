@@ -6,8 +6,9 @@ Wants=mount-android.service
 [Service]
 Type=simple
 ExecStartPre=/bin/sh -c 'while ! mountpoint -q -- /vendor; do sleep 0.5; done'
-ExecStart=/usr/bin/bluebinder
-Restart=on-failure
+ExecStartPre=/bin/sh -c 'sleep 5'
+ExecStart=/usr/sbin/bluebinder
+Restart=always
 RestartSec=5
 
 [Install]

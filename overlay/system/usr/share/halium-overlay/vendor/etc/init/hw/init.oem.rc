@@ -1,3 +1,7 @@
 # Disable OEM services that conflict with Ubuntu Touch
 on boot
     # placeholder - prevents mount-android.conf bind mount from failing
+
+on post-fs-data
+    # Ensure fingerprint data directory exists for Goodix HAL
+    mkdir /data/vendor/fingerprint 0770 system system
