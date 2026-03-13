@@ -1,13 +1,25 @@
+description "urfkill daemon"
+
+start on started mount-android
+
 script
-    # Load WLAN kernel module
-    insmod /vendor/lib/modules/qca_cld3_wlan.ko
+    # Wait for vendor partition to be available
+    while ! mountpoint -q -- /vendor; do sleep 0.5; done
 
-    if [ -f /usr/bin/getprop ]
-    then
-        # Wait for the property system to be up.
+    # Load WLAN kernel module (only if not already loaded)
+    if ! lsmod | grep -q qca_cld3_wlan; then
+        insmod /vendor/lib/modules/qca_cld3_wlan.ko || true
+    fi
+
+    # Wait for wlan interface to appear (up to 10 seconds)
+    TIMEOUT=20
+    while [ $TIMEOUT -gt 0 ] && [ ! -d /sys/class/net/wlan0 ]; do
+        sleep 0.5
+        TIMEOUT=$((TIMEOUT - 1))
+    done
+
+    if [ -f /usr/bin/getprop ]; then
         while [ ! -e /dev/socket/property_service ]; do sleep 0.1; done
-
-        # Wait for properties to be loaded.
         while [ -z "$(getprop wifi.interface)" ]; do sleep 0.2; done
     fi
 

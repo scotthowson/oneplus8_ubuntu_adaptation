@@ -1,0 +1,14 @@
+[Unit]
+Description=Bluebinder Bluetooth HCI bridge
+After=mount-android.service
+Wants=mount-android.service
+
+[Service]
+Type=simple
+ExecStartPre=/bin/sh -c 'while ! mountpoint -q -- /vendor; do sleep 0.5; done'
+ExecStart=/usr/bin/bluebinder
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

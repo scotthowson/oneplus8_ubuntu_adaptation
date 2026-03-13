@@ -1,0 +1,3 @@
+# Disable OEM services that conflict with Ubuntu Touch
+on boot
+    # placeholder - prevents mount-android.conf bind mount from failing
